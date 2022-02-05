@@ -9,12 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        TabView {
-            Text("Tab1")
-                .tabItem { Image(systemName: "1.square") }
-            Tab2RootView()
-                .tabItem { Image(systemName: "2.square") }
-        }
+        Tab2RootView()
     }
 }
 
@@ -32,7 +27,7 @@ struct Tab2RootView: View {
 struct Tab2NoteView: View {
     @Environment(\.rewind) var rewind
     let level: Int
-
+    
     @State private var showFullScreen = false
     var body: some View {
         VStack {
@@ -40,10 +35,10 @@ struct Tab2NoteView: View {
             NavigationLink("Go Next", destination: Tab2NoteView(level: level + 1))
             Divider()
             Button("Full Screen") { showFullScreen.toggle() }
-                .fullScreenCover(isPresented: $showFullScreen,
-                                        onDismiss: { rewind.wrappedValue.toggle() }) {
-                    Tab2FullScreenView()
-                }
+            .fullScreenCover(isPresented: $showFullScreen,
+                             onDismiss: { rewind.wrappedValue.toggle() }) {
+                Tab2FullScreenView()
+            }
         }
     }
 }
@@ -61,7 +56,7 @@ extension EnvironmentValues {
 
 struct Tab2FullScreenView: View {
     @Environment(\.presentationMode) var mode
-
+    
     var body: some View {
         Button("Close") { mode.wrappedValue.dismiss() }
     }
